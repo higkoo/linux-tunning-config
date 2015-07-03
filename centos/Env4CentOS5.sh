@@ -90,8 +90,9 @@ _rm
 * hard nofile 4194304
 _limits
 
-/bin/cat > /etc/security/limits.d/90-nproc.conf << _limits1
+/bin/cat > /etc/security/limits.d/90-nproc.conf << _90nproc
 root       soft    nproc     unlimited
-_limits1
+_90nproc
 
+echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
 chmod +x /etc/profile.d/ulimit.sh /etc/profile.d/history.sh
