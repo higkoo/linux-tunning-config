@@ -80,7 +80,7 @@ _ulimit
 
 /bin/cat > /etc/profile.d/rm.sh << _rm
 #!/bin/bash
-alias rm="/bin/rm --preserve-root --verbose ${interactive}"
+alias rm="/bin/rm --preserve-root --verbose"
 _rm
 
 /bin/cat > /etc/security/limits.conf  << _limits
