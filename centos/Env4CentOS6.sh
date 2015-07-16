@@ -86,7 +86,7 @@ _ulimit
 alias rm="/bin/rm --preserve-root --verbose --interactive=once"
 _rm
 
-/bin/cat > /etc/profile.d/grep.sh << _rm
+/bin/cat > /etc/profile.d/grep.sh << _grep
 #!/bin/bash
 alias grep="/usr/bin/grep --color=auto"
 _grep
