@@ -86,6 +86,11 @@ _ulimit
 alias rm="/bin/rm --preserve-root --verbose --interactive=once"
 _rm
 
+/bin/cat > /etc/profile.d/grep.sh << _rm
+#!/bin/bash
+alias grep="/usr/bin/grep --color=auto"
+_grep
+
 /bin/cat > /etc/security/limits.conf  << _limits
 * soft nproc 10000
 * hard nproc 10000
@@ -98,4 +103,4 @@ root       soft    nproc     unlimited
 _90nproc
 
 echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
-chmod +x /etc/profile.d/ulimit.sh /etc/profile.d/history.sh
+chmod +x /etc/profile.d/*.sh
