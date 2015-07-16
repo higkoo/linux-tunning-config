@@ -66,10 +66,13 @@ sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_confi
 
 /bin/cat > /etc/profile.d/history.sh << _history
 #!/bin/bash
-HISTSIZE=5000
-HISTFILESIZE=5000
-HISTTIMEFORMAT="%F %T "
-export HISTSIZE HISTFILESIZE HISTTIMEFORMAT
+export HISTFILESIZE=100000
+export HISTSIZE=1000
+export PROMPT_COMMAND="history -a"
+export HISTTIMEFORMAT="%Y-%m-%d_%H:%M:%S "
+export HISTIGNORE="history*:pwd:ls:ll"
+export HISTCONTROL="ignoredups"
+export HISTSIZE HISTFILESIZE HISTTIMEFORMAT PROMPT_COMMAND HISTIGNORE HISTCONTROL
 _history
 
 /bin/cat > /etc/profile.d/ulimit.sh << _ulimit
