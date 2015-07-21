@@ -71,8 +71,7 @@ _history
 
 /bin/cat > /etc/profile.d/ulimit.sh << _ulimit
 #!/bin/bash
-[ "\$(id -u)" == "0" ] && ulimit -n 4194304
-ulimit -u 10000
+[ "\$(id -u)" = "0" ] && ulimit -n 4194304
 _ulimit
 
 /bin/cat > /etc/profile.d/rm.sh << _rm
