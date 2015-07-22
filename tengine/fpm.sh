@@ -1,4 +1,4 @@
-sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev libluajit-5.1-dev
+sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev libluajit-5.1-dev libjemalloc-dev
 
 ./configure --user=www-data \
 --group=www-data \
@@ -17,15 +17,16 @@ sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev 
 --http-proxy-temp-path=/var/lib/tengine/proxy \
 --http-scgi-temp-path=/var/lib/tengine/scgi \
 --http-uwsgi-temp-path=/var/lib/tengine/uwsgi \
+--with-syslog \
+--with-jemalloc \
+--with-mail \
+--with-mail_ssl_module \
+--with-http_ssl_module \
 --with-http_auth_request_module \
 --with-http_dav_module \
 --with-http_gzip_static_module \
 --with-http_image_filter_module \
 --with-http_spdy_module \
---with-mail \
---with-mail_ssl_module \
---with-syslog \
---with-http_ssl_module \
 --with-http_stub_status_module \
 --with-http_realip_module \
 --with-http_addition_module=shared \
@@ -70,10 +71,11 @@ make -j24
 make install DESTDIR=~/deb-root/tengine-2.1.0
 
 # tengine-common 更新好的配置文件打个包，以后编译后之后再下载下来更新进去
+# dpkg -X tengine-common_1.0.0-1_amd64.deb /data/higkoo/deb-root/tengine-2.1.0/
 fpm -f -s dir -t deb -n tengine-common --epoch 1 -v 1.0.0 --iteration 1 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file --verbose --category 'Development/Languages' --description 'Tengine Documents' --url 'tengine.taobao.org' --license 'BSD' -m 'higkoo' var/log/tengine lib/systemd/system/tengine.service etc/ufw/applications.d/tengine etc/default/tengine etc/logrotate.d/tengine etc/tengine etc/init.d/tengine usr/share/tengine/html
 
 # tengine
-fpm -f -s dir -t deb -n tengine --epoch 2 -v 2.1.0 --iteration 2 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file \
+fpm -f -s dir -t deb -n tengine --epoch 2 -v 2.1.0 --iteration 3 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file \
 -d 'libc6 >= 2.14' -d 'libexpat1 >= 2.0.1' -d 'libgd3 >= 2.1.0~alpha~' -d 'libgeoip1' \
 -d 'libpam0g >= 0.99.7.1' -d 'libpcre3 >= 8.35' -d 'libssl1.0.0 >= 1.0.1' -d 'libxml2 >= 2.7.4' \
 -d 'libxslt1.1 >= 1.1.25' -d 'zlib1g >= 1:1.2.0' \
