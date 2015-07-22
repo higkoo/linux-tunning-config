@@ -57,16 +57,16 @@ d-i netcfg/disable_dhcp boolean true
 #d-i netcfg/dhcp_options select Configure network manually
 
 # Static network configuration.
-d-i netcfg/get_ipaddress string 172.16.3.126
-d-i netcfg/get_nameservers string 172.16.3.1
+d-i netcfg/get_ipaddress string 192.168.168.168
+d-i netcfg/get_nameservers string 114.114.114.114
 d-i netcfg/get_netmask string 255.255.255.0
-d-i netcfg/get_gateway string 172.16.3.1
+d-i netcfg/get_gateway string 192.168.168.1
 d-i netcfg/confirm_static boolean true
 
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
-d-i netcfg/get_hostname string bilibili
+d-i netcfg/get_hostname string demo.higkoo.com
 d-i netcfg/get_domain string unassigned-domain
 #
 # Disable that annoying WEP key dialog.
@@ -83,7 +83,7 @@ d-i netcfg/wireless_wep string
 
 d-i mirror/protocol string http
 d-i mirror/country string China
-d-i mirror/http/hostname string mirrors.bilibili.co
+d-i mirror/http/hostname string mirrors.yun-idc.com
 d-i mirror/http/directory string /debian
 d-i mirror/http/proxy string
 
@@ -104,7 +104,7 @@ d-i time/zone string Asia/Shanghai
 d-i clock-setup/ntp boolean true
 
 # NTP server to use. The default is almost always fine here.
-d-i clock-setup/ntp-server string ntp.bilibili.co
+d-i clock-setup/ntp-server string cn.pool.ntp.org
 
 ### Partitioning
 
@@ -212,13 +212,13 @@ d-i passwd/root-login boolean true
 d-i passwd/make-user boolean false
 
 # Root password, either in clear text
-d-i passwd/root-password password bilibili
+d-i passwd/root-password password haha678
 
-d-i passwd/root-password-again password bilibili
+d-i passwd/root-password-again password haha678
 
 # or encrypted using an MD5 hash.
 #d-i passwd/root-password-crypted password [MD5 hash]
-#d-i passwd/root-password-crypted password $1$uvh20/$kUIdD2Jdu5JerGZHJPcvZ0
+#d-i passwd/root-password-crypted password $1$uvh28/$kUIdD8Jdu8JerGZHJPcvZ8
 
 # To create a normal user account.
 #d-i passwd/user-fullname string Debian User
@@ -232,7 +232,7 @@ d-i passwd/root-password-again password bilibili
 
 # or encrypted using an MD5 hash.
 #d-i passwd/user-password-crypted password [MD5 hash]
-#d-i passwd/user-password-crypted password $1$7tg20/$hnbObW86VeE20WNC8dkqo/
+#d-i passwd/user-password-crypted password $1$7tg28/$hnbObW88VeE88WNC8dkqo/
 
 # Create the first user with the specified UID instead of the default.
 #d-i passwd/user-uid string 1010
@@ -259,7 +259,7 @@ d-i apt-setup/services-select multiselect security
 
 #d-i apt-setup/security_host string security.debian.org
 #d-i apt-setup/volatile_host string volatile.debian.org
-d-i apt-setup/security_host string mirrors.bilibili.co/debian-security
+d-i apt-setup/security_host string mirrors.yun-idc.com/debian-security
 d-i apt-setup/security_path string /
 
 # Additional repositories, local[0-9] available
