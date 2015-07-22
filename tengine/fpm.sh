@@ -1,6 +1,4 @@
-#!/bin/bash
-
-sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev 
+sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev libluajit-5.1-dev
 
 ./configure --user=www-data \
 --group=www-data \
@@ -61,6 +59,9 @@ sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev 
 --with-http_upstream_least_conn_module=shared \
 --with-http_upstream_session_sticky_module=shared \
 --with-http_reqstat_module=shared \
+--with-http_lua_module=shared \
+--with-luajit-inc=/usr/include/luajit-2.0 \
+--with-luajit-lib=/usr/lib/x86_64-linux-gnu \
 --with-ld-opt=-Wl,-z,relro \
 --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2'
 
@@ -72,7 +73,7 @@ make install DESTDIR=~/deb-root/tengine-2.1.0
 fpm -f -s dir -t deb -n tengine-common --epoch 1 -v 1.0.0 --iteration 1 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file --verbose --category 'Development/Languages' --description 'Tengine Documents' --url 'tengine.taobao.org' --license 'BSD' -m 'higkoo' var/log/tengine lib/systemd/system/tengine.service etc/ufw/applications.d/tengine etc/default/tengine etc/logrotate.d/tengine etc/tengine etc/init.d/tengine usr/share/tengine/html
 
 # tengine
-fpm -f -s dir -t deb -n tengine --epoch 2 -v 2.1.0 --iteration 1 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file \
+fpm -f -s dir -t deb -n tengine --epoch 2 -v 2.1.0 --iteration 2 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file \
 -d 'libc6 >= 2.14' -d 'libexpat1 >= 2.0.1' -d 'libgd3 >= 2.1.0~alpha~' -d 'libgeoip1' \
 -d 'libpam0g >= 0.99.7.1' -d 'libpcre3 >= 8.35' -d 'libssl1.0.0 >= 1.0.1' -d 'libxml2 >= 2.7.4' \
 -d 'libxslt1.1 >= 1.1.25' -d 'zlib1g >= 1:1.2.0' \
