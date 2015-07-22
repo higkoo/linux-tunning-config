@@ -75,5 +75,5 @@ fpm -f -s dir -t deb -n tengine-common --epoch 1 -v 1.0.0 --iteration 1 -C ~/deb
 fpm -f -s dir -t deb -n tengine --epoch 2 -v 2.1.0 --iteration 1 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file \
 -d 'libc6 >= 2.14' -d 'libexpat1 >= 2.0.1' -d 'libgd3 >= 2.1.0~alpha~' -d 'libgeoip1' \
 -d 'libpam0g >= 0.99.7.1' -d 'libpcre3 >= 8.35' -d 'libssl1.0.0 >= 1.0.1' -d 'libxml2 >= 2.7.4'\
- -d 'libxslt1.1 >= 1.1.25' -d 'zlib1g >= 1:1.2.0' \
+-d 'libxslt1.1 >= 1.1.25' -d 'zlib1g >= 1:1.2.0' \
 --verbose --category 'Service/HTTP(s)Server' --description 'Tengine Web Server' --url 'tengine.taobao.org' --license 'BSD' -m 'higkoo' usr/sbin/dso_tool usr/sbin/tengine usr/share/tengine usr/lib64/tengine var/log/tengine etc/tengine
