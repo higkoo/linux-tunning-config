@@ -1,4 +1,6 @@
-sudo apt-get install libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev libluajit-5.1-dev libjemalloc-dev
+sudo apt-get install make libpcre3-dev libssl-dev libxml2-dev libxslt1-dev libgd-dev libgeoip-dev libluajit-5.1-dev libjemalloc-dev
+
+mkdir -pv ~/deb-{root,file}
 
 ./configure --user=www-data \
 --group=www-data \
@@ -71,7 +73,7 @@ make -j24
 make install DESTDIR=~/deb-root/tengine-2.1.0
 
 # tengine-common 更新好的配置文件打个包，以后编译后之后再下载下来更新进去
-# dpkg -X tengine-common_1.0.0-1_amd64.deb /data/higkoo/deb-root/tengine-2.1.0/
+# dpkg -X tengine-common_1.0.0-1_amd64.deb ~/deb-root/tengine-2.1.0/
 fpm -f -s dir -t deb -n tengine-common --epoch 1 -v 1.0.0 --iteration 1 -C ~/deb-root/tengine-2.1.0 -p ~/deb-file --verbose --category 'Development/Languages' --description 'Tengine Documents' --url 'tengine.taobao.org' --license 'BSD' -m 'higkoo' var/log/tengine lib/systemd/system/tengine.service etc/ufw/applications.d/tengine etc/default/tengine etc/logrotate.d/tengine etc/tengine etc/init.d/tengine usr/share/tengine/html
 
 # tengine
