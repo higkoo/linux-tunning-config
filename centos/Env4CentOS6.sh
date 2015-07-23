@@ -55,6 +55,8 @@ vm.swappiness = 0
 _sysctl
 
 /bin/cat > /etc/resolv.conf << _resolv
+nameserver 223.5.5.5
+nameserver 223.6.6.6
 nameserver 114.114.114.114
 nameserver 8.8.4.4
 nameserver 8.8.8.8

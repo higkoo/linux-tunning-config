@@ -49,13 +49,15 @@ vm.swappiness = 0
 _sysctl
 
 /bin/cat > /etc/resolv.conf << _resolv
+nameserver 223.5.5.5
+nameserver 223.6.6.6
 nameserver 114.114.114.114
 nameserver 8.8.4.4
 nameserver 8.8.8.8
 _resolv
 
 grep '^UseDNS no' /etc/ssh/sshd_config || echo "UseDNS no" >> /etc/ssh/sshd_config
-echo -ne "source /etc/profile\nsysctl -e -p\nntpdate -b cn.pool.ntp.org && hwclock --systohc\n" >> /etc/rc.local
+echo -ne "#!/bin/bash -x\n. /etc/profile\nsysctl -e -p\nntpdate -b cn.pool.ntp.org && hwclock --systohc\nexit 0" >> /etc/rc.local
 sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_config
 
 /bin/cat > /etc/profile.d/history.sh << _history
