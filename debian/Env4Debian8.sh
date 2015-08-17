@@ -14,6 +14,7 @@ net.core.rmem_default = 2097152
 net.core.rmem_max = 16777216
 net.core.wmem_default = 2097152
 net.core.wmem_max = 16777216
+net.core.somaxconn = 65535
 net.ipv4.conf.default.accept_source_route = 0
 net.ipv4.conf.default.rp_filter = 1
 net.ipv4.ip_forward = 1
