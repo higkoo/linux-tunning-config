@@ -3,6 +3,7 @@
 /bin/cat > /etc/sysctl.conf << _sysctl
 fs.nr_open = 5242880
 fs.file-max = 4194304
+fs.aio-max-nr = 1048576
 kernel.core_uses_pid = 1
 kernel.msgmax = 1048560
 kernel.msgmnb = 1073741824
