@@ -90,7 +90,7 @@ _rm
 
 /bin/cat > /etc/profile.d/grep.sh << _grep
 #!/bin/bash
-alias grep="/usr/bin/grep --color=auto"
+alias grep="/bin/grep --color=auto"
 _grep
 
 /bin/cat > /etc/security/limits.conf  << _limits
