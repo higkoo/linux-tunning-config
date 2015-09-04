@@ -21,6 +21,7 @@ d-i clock-setup/ntp-server string cn.pool.ntp.org
 
 d-i netcfg/choose_interface select auto
 d-i netcfg/disable_dhcp boolean true
+d-i netcfg/disable_autoconfig boolean true
 d-i netcfg/get_ipaddress string 192.168.168.168
 d-i netcfg/get_nameservers string 223.5.5.5
 d-i netcfg/get_netmask string 255.255.255.0
