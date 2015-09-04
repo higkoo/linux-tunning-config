@@ -63,6 +63,12 @@ apt-mirror-setup        apt-setup/non-free      boolean false
 apt-cdrom-setup apt-setup/cdrom/set-next        boolean false
 apt-setup-udeb  apt-setup/services-select       multiselect     
 
+# Need If using iso
+d-i apt-setup/use_mirror boolean false
+d-i apt-setup/cdrom/set-first boolean false
+d-i apt-setup/cdrom/set-next boolean false   
+d-i apt-setup/cdrom/set-failed boolean false
+
 d-i  mirror/country             string manual
 d-i  mirror/http/hostname       string mirrors.aliyun.com
 d-i  mirror/http/directory      string /debian
