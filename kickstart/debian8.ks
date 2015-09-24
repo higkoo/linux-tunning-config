@@ -53,9 +53,15 @@ d-i partman-auto/expert_recipe string                         \
                       use_filesystem{ } filesystem{ xfs }     \
                       mountpoint{ /data }                     \
               .
+d-i partman/confirm boolean true
 d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition select Finish partitioning and write changes to disk
-d-i partman/confirm boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/confirm_nooverwrite boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm_nooverwrite boolean true
+d-i partman/confirm_write_changes_to_disks_and_configure_lvm boolean true
 
 apt-mirror-setup        apt-setup/no_mirror     boolean true
 apt-mirror-setup        apt-setup/use_mirror    boolean false
