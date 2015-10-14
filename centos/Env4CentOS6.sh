@@ -51,7 +51,9 @@ net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_wmem = 4096        16384   16777216
 net.ipv6.conf.all.disable_ipv6 = 1 
 net.ipv6.conf.default.disable_ipv6 = 1 
-vm.swappiness = 0 
+vm.swappiness = 0
+kernel.perf_cpu_time_max_percent = 0
+kernel.perf_event_max_sample_rate = 50000
 _sysctl
 
 /bin/cat > /etc/resolv.conf << _resolv
