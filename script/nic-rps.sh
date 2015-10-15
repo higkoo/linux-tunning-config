@@ -22,7 +22,7 @@ for i in $q ; do
     k=$[$k+1]
 done
 
-interfaces=`ifconfig | grep ^eth | awk '{print $1}' | fgrep -v :`
+interfaces=`ifconfig | grep -E "^eth|^em|^bond" | awk '{print $1}' | fgrep -v :`
 for t_iface in $interfaces ; do
     if [ -d /sys/class/net/$t_iface/queues ] ; then
         RX=`ls -ld /sys/class/net/$t_iface/queues/rx* 2>/dev/null | wc -l`
