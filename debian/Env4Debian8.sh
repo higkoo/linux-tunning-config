@@ -174,7 +174,6 @@ echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
 sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_config
-sed -i 's/PrintMotd no/PrintMotd yes/g' /etc/ssh/ssh_config
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 thash_entries=1048576 rhash_entries=1048576 biosdevname=0 nohz=off enforcing=0 ipv6.disable_ipv6=1"/g' /etc/default/grub
 sed -i 's/quiet//g' /etc/default/grub
 chmod +x /etc/profile.d/*.sh /etc/rc.local /etc/cron.hourly/ntpdate
@@ -187,8 +186,8 @@ insserv -r nfs-common
 insserv -r rpcbind
 insserv -r exim4
 insserv -r rsync
-systemctl stop nfs-common.service 
-systemctl stop rpcbind.service 
-systemctl stop exim4.service 
-systemctl stop rsync.service 
+systemctl stop nfs-common
+systemctl stop rpcbind
+systemctl stop exim4
+systemctl stop rsync
 grub-mkconfig -o /boot/grub/grub.cfg
