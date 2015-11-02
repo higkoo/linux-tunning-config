@@ -4,7 +4,7 @@
 fs.nr_open = 5242880
 fs.file-max = 4194304
 kernel.core_uses_pid = 1 
-kernel.msgmax = 1048560 
+kernel.msgmax = 1048576 
 kernel.msgmnb = 1073741824 
 kernel.shmall = 4294967296 
 kernel.shmmax = 68719476736 
@@ -105,4 +105,5 @@ root       soft    nproc     unlimited
 _90nproc
 
 echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
+sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf
 chmod +x /etc/profile.d/*.sh /etc/rc.d/rc.local
