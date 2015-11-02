@@ -5,7 +5,7 @@ fs.nr_open = 5242880
 fs.file-max = 4194304
 fs.aio-max-nr = 1048576
 kernel.core_uses_pid = 1
-kernel.msgmax = 1048560
+kernel.msgmax = 1048576
 kernel.msgmnb = 1073741824
 kernel.shmall = 4294967296
 kernel.shmmax = 68719476736
@@ -176,6 +176,7 @@ sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_
 sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_config
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 thash_entries=1048576 rhash_entries=1048576 biosdevname=0 nohz=off enforcing=0 ipv6.disable_ipv6=1"/g' /etc/default/grub
 sed -i 's/quiet//g' /etc/default/grub
+sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf
 chmod +x /etc/profile.d/*.sh /etc/rc.local /etc/cron.hourly/ntpdate
 
 service ssh reload
