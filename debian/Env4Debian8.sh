@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# env init for jessie
 /bin/cat > /etc/sysctl.conf << _sysctl
 fs.nr_open = 5242880
 fs.file-max = 4194304
@@ -88,6 +88,12 @@ alias grep="/bin/grep --color=auto"
 alias ll="/bin/ls -lh"
 alias la="/bin/ls -lha"
 _alias
+
+/bin/cat > /etc/profile.d/ulimit.sh << _ulimit
+#!/bin/bash
+[ "\$(id -u)" == "0" ] && ulimit -n 4194304
+ulimit -u 80000
+_ulimit
 
 /bin/cat > /etc/security/limits.conf  << _limits
 * soft nproc 80000
