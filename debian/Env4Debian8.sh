@@ -182,7 +182,7 @@ sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_
 sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_config
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 thash_entries=1048576 rhash_entries=1048576 biosdevname=0 nohz=off enforcing=0 ipv6.disable_ipv6=1"/g' /etc/default/grub
 sed -i 's/quiet//g' /etc/default/grub
-sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf
+sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 chmod +x /etc/profile.d/*.sh /etc/rc.local /etc/cron.hourly/ntpdate
 
 service ssh reload
