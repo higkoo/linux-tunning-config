@@ -36,6 +36,11 @@ iptables -P FORWARD ACCEPT
 }
 
 ipt_tunning(){
+/bin/cat > ${ipt_mod_conf} << _rm-ipt-modprobe
+options nf_conntrack hashsize=262144
+_rm-ipt-modprobe
+modprobe -r nf_conntrack && modprobe -a nf_conntrack
+dmesg --reltime | grep nf_conntrack | tail -2 2>/dev/null
 sysctl -e -w net.nf_conntrack_max=4194304
 sysctl -e -w net.ipv4.netfilter.ip_conntrack_max=4194304
 sysctl -e -w net.netfilter.nf_conntrack_max=4194304
@@ -43,9 +48,6 @@ sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_established=1200
 sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_close_wait=60
 sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_fin_wait=120
 sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_time_wait=120
-/bin/cat > ${ipt_mod_conf} << _rm-ipt-modprobe
-options nf_conntrack hashsize=1048576
-_rm-ipt-modprobe
 }
 
 case "$1" in
