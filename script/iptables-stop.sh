@@ -1,8 +1,8 @@
 #!/bin/bash
 # iptables-stop.sh status | stop | disable | tunning
 ipt_mod_conf="/etc/modprobe.d/iptables-blacklist.conf"
-nf_max=$(sysctl net.nf_conntrack_max 2>/dev/null)
-nf_cur=$(wc -l /proc/net/nf_conntrack 2>/dev/null)
+nf_max=$(sysctl -e -n net.nf_conntrack_max)
+nf_cur=$(sysctl -e -n net.netfilter.nf_conntrack_count)
 
 fuck_ipt_mod(){
 /bin/cat > ${ipt_mod_conf} << _rm-ipt-modprobe
