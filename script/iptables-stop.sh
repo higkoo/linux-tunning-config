@@ -1,5 +1,5 @@
 #!/bin/bash
-# iptables-stop.sh status | stop | disable
+# iptables-stop.sh status | stop | disable | tunning
 ipt_mod_conf="/etc/modprobe.d/iptables-blacklist.conf"
 nf_max=$(sysctl net.nf_conntrack_max 2>/dev/null)
 nf_cur=$(wc -l /proc/net/nf_conntrack 2>/dev/null)
@@ -35,6 +35,19 @@ iptables -P OUTPUT ACCEPT
 iptables -P FORWARD ACCEPT
 }
 
+ipt_tunning(){
+sysctl -e -w net.nf_conntrack_max=4194304
+sysctl -e -w net.ipv4.netfilter.ip_conntrack_max=4194304
+sysctl -e -w net.netfilter.nf_conntrack_max=4194304
+sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_established=1200
+sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_close_wait=60
+sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_fin_wait=120
+sysctl -e -w net.netfilter.nf_conntrack_tcp_timeout_time_wait=120
+/bin/cat > ${ipt_mod_conf} << _rm-ipt-modprobe
+options nf_conntrack hashsize=1048576
+_rm-ipt-modprobe
+}
+
 case "$1" in
 status)
     if [[ -z ${nf_max} ]]; then
@@ -51,8 +64,12 @@ disable)
     $0 stop
     fuck_ipt_mod
     ;;
+tunning)
+    ipt_tunning
+    $0 status
+;;
 *)
-    echo "Usage: $0 status|stop|disable"
+    echo "Usage: $0 {status|stop|disable|tunning}"
     exit 2
     ;;
 esac
