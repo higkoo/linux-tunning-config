@@ -1,5 +1,5 @@
 #!/bin/bash
-# iptables.sh status | clean | disable | enable
+# iptables.sh status | disable | enable
 ipt_mod_conf="/etc/modprobe.d/iptables.conf"
 ipt_mod_list="ip_vs iptable_nat nf_nat_ipv4 ipt_MASQUERADE nf_nat nf_conntrack_ipv4 nf_defrag_ipv4 xt_conntrack nf_conntrack iptable_filter ip_tables xt_tcpudp xt_multiport xt_length xt_addrtype x_tables"
 nf_max=$(sysctl -e -n net.nf_conntrack_max)
@@ -51,10 +51,6 @@ status)
         echo "nf_conntrack used: ${nf_cur}/${nf_max}."
     fi
     ;;
-clean)
-    clean_ipt_rule
-    $0 status
-    ;;
 disable)
     clean_ipt_rule
     fuck_ipt_mod
@@ -65,7 +61,7 @@ enable)
     $0 status
 ;;
 *)
-    echo "Usage: $0 {status|clean|disable|enable}"
+    echo "Usage: $0 {status|disable|enable}"
     exit 2
     ;;
 esac
