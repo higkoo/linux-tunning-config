@@ -157,29 +157,6 @@ ntpdate -b cn.pool.ntp.org &
 exit 0
 _rclocal
 
-/bin/cat > /etc/modprobe.d/iptables-blacklist.conf << _rm-ipt-modprobe
-# disable iptables conntrack
-blacklist iptable_nat 
-blacklist ipt_REDIRECT 
-blacklist nf_conntrack 
-blacklist nf_conntrack_ftp 
-blacklist nf_conntrack_ipv4
-blacklist nf_conntrack_ipv6 
-blacklist nf_nat 
-blacklist xt_conntrack 
-blacklist xt_state
-_rm-ipt-modprobe
-
-modprobe -r nf_conntrack_ipv4
-modprobe -r nf_conntrack_ipv6
-modprobe -r xt_state
-modprobe -r xt_CT
-modprobe -r xt_conntrack
-modprobe -r iptable_nat
-modprobe -r ipt_REDIRECT
-modprobe -r nf_nat
-modprobe -r nf_conntrack
-
 echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
 sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
