@@ -60,6 +60,10 @@ net.ipv4.conf.all.secure_redirects = 0
 net.ipv4.conf.default.secure_redirects = 0
 net.ipv4.icmp_echo_ignore_broadcasts = 1
 net.ipv4.icmp_ignore_bogus_error_responses = 1
+ernel.nmi_watchdog = 0
+kernel.soft_watchdog = 0
+kernel.watchdog = 0
+kernel.watchdog_thresh = 0
 _sysctl
 
 /bin/cat > /etc/resolv.conf << _resolv
@@ -180,7 +184,7 @@ echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
 sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/ssh_config
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 thash_entries=1048576 rhash_entries=1048576 biosdevname=0 nohz=off enforcing=0 ipv6.disable_ipv6=1"/g' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 thash_entries=1048576 rhash_entries=1048576 biosdevname=0 nohz=off enforcing=0 ipv6.disable_ipv6=1 nmi_watchdog=0 selinux=0"/g' /etc/default/grub
 sed -i 's/quiet//g' /etc/default/grub
 sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 chmod +x /etc/profile.d/*.sh /etc/rc.local /etc/cron.hourly/ntpdate
