@@ -152,6 +152,8 @@ _ntpdate
 
 grep '^. /etc/profile' /etc/rc.local || sed -i "s#exit 0#. /etc/profile\nexit 0#g" /etc/rc.local
 grep '^sysctl -e -p' /etc/rc.local || sed -i "s#exit 0#sysctl -e -p\nexit 0#g" /etc/rc.local
+grep '^ntpdate -b cn.pool.ntp.org' /etc/rc.local || sed -i "s#exit 0#ntpdate -b cn.pool.ntp.org \&\& hwclock --systohc \&\nexit 0#g" /etc/rc.local
+grep '^[[ -f /opt/nic-rps.sh ]]' /etc/rc.local || sed -i "s#exit 0#[[ -f /opt/nic-rps.sh ]] \&\& bash /opt/nic-rps.sh\nexit 0#g" /etc/rc.local
 
 echo -e "SELINUX=disabled\nSELINUXTYPE=targeted" > /etc/selinux/config
 sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
