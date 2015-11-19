@@ -9,7 +9,7 @@ ipt_hsize=$(grep 'MemTotal' /proc/meminfo | awk '{printf("%d",$2/64)}')
 fuck_ipt_mod(){
 echo '# disable iptables conntrack modules' > ${ipt_mod_conf}
 for ipt_mod in ${ipt_mod_list}; do
-	echo "blacklist ${ipt_mod}" >> ${ipt_mod_conf}
+    echo "blacklist ${ipt_mod}" >> ${ipt_mod_conf}
     modprobe -r ${ipt_mod}
 done
 }
