@@ -4,7 +4,7 @@ ipt_mod_conf="/etc/modprobe.d/iptables.conf"
 ipt_mod_list="ip_vs iptable_nat nf_nat_ipv4 ipt_MASQUERADE nf_nat nf_conntrack_ipv4 nf_defrag_ipv4 xt_conntrack nf_conntrack iptable_filter ip_tables xt_tcpudp xt_multiport xt_length xt_addrtype x_tables"
 nf_max=$(sysctl -e -n net.nf_conntrack_max)
 nf_cur=$(sysctl -e -n net.netfilter.nf_conntrack_count)
-ipt_hsize=$(grep 'MemTotal' /proc/meminfo | awk '{printf("%d",$2/16)}')
+ipt_hsize=$(grep 'MemTotal' /proc/meminfo | awk '{printf("%d",$2/64)}')
 
 fuck_ipt_mod(){
 echo '# disable iptables conntrack modules' > ${ipt_mod_conf}
