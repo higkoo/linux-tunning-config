@@ -1,4 +1,4 @@
-/* gcc -o /sbin/iopp iopp.c
+/* gcc -o /usr/bin/iopp iopp.c
  * iopp -ciu 5
  */
 
