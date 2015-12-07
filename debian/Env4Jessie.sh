@@ -97,7 +97,6 @@ _alias
 /bin/cat > /etc/profile.d/ulimit.sh << _ulimit
 #!/bin/bash
 [ "\$(id -u)" == "0" ] && ulimit -n 4194304
-ulimit -u 80000
 _ulimit
 
 /bin/cat > /etc/security/limits.conf  << _limits
