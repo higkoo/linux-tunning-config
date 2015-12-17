@@ -1,7 +1,7 @@
 #!/bin/bash
-# iptables.sh status | disable | enable
+# iptables.sh status | stop | disable | enable
 ipt_mod_conf="/etc/modprobe.d/iptables.conf"
-ipt_mod_list="iptable_filter xt_length xt_tcpudp ipt_MASQUERADE xt_conntrack xt_multiport xt_addrtype ip_vs iptable_nat nf_conntrack_ipv4 nf_defrag_ipv4 nf_nat_ipv4 nf_nat nf_conntrack x_tables ip_tables"
+ipt_mod_list="iptable_filter xt_length xt_tcpudp ipt_MASQUERADE xt_conntrack xt_multiport xt_addrtype ip_vs iptable_nat nf_conntrack_ipv6 nf_conntrack_ipv4 nf_defrag_ipv6 nf_defrag_ipv4 nf_nat_ipv6 nf_nat_ipv4 nf_nat xt_state nf_conntrack x_tables ip_tables"
 disable_ipt_mod=0
 nf_max=$(sysctl -e -n net.nf_conntrack_max)
 nf_cur=$(sysctl -e -n net.netfilter.nf_conntrack_count)
@@ -11,29 +11,26 @@ fuck_ipt_mod(){
 [ $disable_ipt_mod ] && echo '# disable iptables conntrack modules' > ${ipt_mod_conf}
 for ipt_mod in ${ipt_mod_list}; do
     [ $disable_ipt_mod ] && echo "blacklist ${ipt_mod}" >> ${ipt_mod_conf}
-    modprobe -r ${ipt_mod}
+    grep -q ${ipt_mod} /proc/modules && modprobe -r ${ipt_mod}
 done
 }
 
 clean_ipt_rule(){
-iptables -F
-iptables -Z
-iptables -X
 for ipt_table in $(cat /proc/net/ip_tables_names 2>/dev/null); do
+    iptables -t ${ipt_table} -P INPUT ACCEPT
+    iptables -t ${ipt_table} -P OUTPUT ACCEPT
+    iptables -t ${ipt_table} -P FORWARD ACCEPT
     iptables -t ${ipt_table} -F
     iptables -t ${ipt_table} -Z
     iptables -t ${ipt_table} -X
     echo "Table: ${ipt_table} stopped."
 done
-iptables -P INPUT ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -P FORWARD ACCEPT
 }
 
 ipt_enable(){
 echo "options nf_conntrack hashsize=${ipt_hsize}" > ${ipt_mod_conf} # /sys/module/nf_conntrack/parameters/hashsize
 for ipt_mod in ${ipt_mod_list}; do
-    modprobe -a ${ipt_mod}
+    grep -q ${ipt_mod} /proc/modules || modprobe -a ${ipt_mod}
 done
 dmesg --reltime | grep nf_conntrack | tail -2 2>/dev/null
 sysctl -e -w net.nf_conntrack_max=4194304
